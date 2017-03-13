@@ -10,8 +10,8 @@ import android.view.View;
 public class TouchControl extends View {
 
     MainActivity activity;
-
     private int topOfLine = 0;
+
 
     public TouchControl(MainActivity activity) {
         super(activity);
@@ -34,12 +34,16 @@ public class TouchControl extends View {
         canvas.drawRect(drawMe, p);
     }
 
-    public void setSlider(MotionEvent e) {
+    /**
+     * Returns the y-position of the touch
+     * @param e
+     * @return
+     */
+    public int setSlider(MotionEvent e) {
         MotionEvent.PointerCoords pc = new MotionEvent.PointerCoords();
         e.getPointerCoords(0, pc);
         topOfLine = (int) pc.y;
-
-        System.out.println(topOfLine);
+        return(topOfLine);
     }
 
 }

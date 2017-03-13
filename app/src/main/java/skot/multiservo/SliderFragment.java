@@ -1,13 +1,17 @@
 package skot.multiservo;
 
+import android.app.ActivityManager;
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.Queue;
 
 
 /**
@@ -20,11 +24,12 @@ import android.view.ViewGroup;
  */
 public class SliderFragment extends Fragment {
 
-    private static final String servoId = "NO ID SET";
+    private String servoId = "NO ID SET";
 
     private String mParam1;
     private TouchControl touchControl;
     private OnFragmentInteractionListener mListener;
+    public Queue<Pair<String, Integer>> commandQueue;
 
     public SliderFragment() {
         // Required empty public constructor
@@ -39,11 +44,13 @@ public class SliderFragment extends Fragment {
      * @return A new instance of fragment SliderFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static SliderFragment newInstance(String param1) {
+    public static SliderFragment newInstance(String param1, Queue<Pair<String, Integer>> commandQueue) {
         SliderFragment fragment = new SliderFragment();
         Bundle args = new Bundle();
-        args.putString(servoId, param1);
+        //args.putString(servoId, param1);
         fragment.setArguments(args);
+        fragment.servoId = param1;
+        fragment.commandQueue = commandQueue;
         return fragment;
     }
 
@@ -69,8 +76,10 @@ public class SliderFragment extends Fragment {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 TouchControl tc = (TouchControl) view;
-                tc.setSlider(motionEvent);
+                int yPosition = tc.setSlider(motionEvent);
                 tc.invalidate();
+
+                commandQueue.add(new Pair<>(servoId, yPosition));
                 return true;
             }
         });
@@ -79,12 +88,6 @@ public class SliderFragment extends Fragment {
         return v;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
 
 
     @Override
