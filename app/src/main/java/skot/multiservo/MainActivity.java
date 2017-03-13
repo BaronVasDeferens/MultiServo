@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
-import android.widget.LinearLayout;
 
 import java.io.IOException;
 import java.util.Queue;
@@ -105,8 +104,7 @@ public class MainActivity extends AppCompatActivity implements SliderFragment.On
         transmitThread.keepRunning = false;
         try {
             socket.close();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
 
