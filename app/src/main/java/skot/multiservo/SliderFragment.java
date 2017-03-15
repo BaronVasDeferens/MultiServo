@@ -72,6 +72,8 @@ public class SliderFragment extends Fragment {
                 int yPosition = tc.setSlider(motionEvent);
                 tc.invalidate();
 
+                // Touches create too many events; find a way to reduce them
+
                 commandQueue.add(new Pair<>(servoId, yPosition));
                 return true;
             }
