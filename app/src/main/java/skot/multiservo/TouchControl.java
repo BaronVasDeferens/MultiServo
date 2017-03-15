@@ -13,6 +13,7 @@ public class TouchControl extends View {
     private int topOfLine = 0;
 
 
+
     public TouchControl(MainActivity activity) {
         super(activity);
         this.activity = activity;

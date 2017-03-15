@@ -52,7 +52,7 @@ def runServer():
     serverSocket = bluetooth.BluetoothSocket(bluetooth.RFCOMM)
     port = bluetooth.PORT_ANY
     serverSocket.bind(("", port))
-    print "Bluetoof Server"
+    print "Servo Server"
     print "Listening for connections on port: ", port
 
     while 1:
@@ -103,7 +103,9 @@ def runServer():
 
 def convertToDegrees(val):
     if (val < 0):
-        return;
+        val = 0
+    if (val > 650)
+        val = 650
     inMin = 0
     # effective edge of screen is 9 and 1013
     inMax = 1013.0
